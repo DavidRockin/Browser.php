@@ -57,21 +57,25 @@ class Browser
     const BROWSER_LYNX = 'Lynx';
     const BROWSER_SAFARI = 'Safari';
     const BROWSER_CHROME = 'Chrome';
-    //const BROWSER_GOOGLEBOT = 'GoogleBot';
-    //const BROWSER_SLURP = 'Yahoo! Slurp';
     //const BROWSER_W3CVALIDATOR = 'W3C Validator';
     const BROWSER_BLACKBERRY = 'BlackBerry';
     const BROWSER_ICECAT = 'IceCat';
     //const BROWSER_NOKIA_S60 = 'Nokia S60 OSS Browser';
     //const BROWSER_NOKIA = 'Nokia Browser';
     //const BROWSER_MSN = 'MSN Browser';
-    //const BROWSER_MSNBOT = 'MSN Bot';
-    //const BROWSER_BINGBOT = 'Bing Bot';
     const BROWSER_NETSCAPE_NAVIGATOR = 'Netscape Navigator';
     const BROWSER_GALEON = 'Galeon';
     const BROWSER_NETPOSITIVE = 'NetPositive';
     const BROWSER_PHOENIX = 'Phoenix';
     const BROWSER_MAXTHON = "Maxthon";
+
+    // bots & crawlers
+    const BROWSER_MSNBOT = 'MSN Bot';
+    const BROWSER_GOOGLEBOT = 'GoogleBot';
+    const BROWSER_GOOGLEBOTIMAGE = 'GoogleBot-Image';
+    const BROWSER_SLURP = 'Yahoo! Slurp';
+    const BROWSER_BINGBOT = 'Bing Bot';
+    const BROWSER_BAIDU = "Baiduspider";
 
     // libraries and utilities
     const BROWSER_CURL = "cURL";
@@ -98,6 +102,8 @@ class Browser
     const PLATFORM_ANDROID     = 'Android';
 
     // device types
+    const DEVICE_BOT     = "Bot";
+    const DEVICE_TOOL    = "Utility";
     const DEVICE_DESKTOP = "Desktop";
     const DEVICE_MOBILE  = "Mobile";
     const DEVICE_TABLET  = "Tablet";
@@ -107,6 +113,7 @@ class Browser
     public $browserName    = self::BROWSER_UNKNOWN;
     public $browserVersion = self::VERSION_UNKNOWN;
     public $platform       = self::PLATFORM_UNKNOWN;
+    public $deviceType     = self::DEVICE_DESKTOP;
 
     /**
      * @todo Allow regex and parts to only accept strings instead of arrays
@@ -244,13 +251,51 @@ class Browser
         	],
         ],
         self::BROWSER_CURL => [
+        	"deviceType" => self::DEVICE_TOOL,
         	"regex" => [
         		"/cURL[\/ ](?P<version>([^ ;\)]+))/i",
         	],
         ],
         self::BROWSER_WGET => [
+        	"deviceType" => self::DEVICE_TOOL,
         	"regex" => [
         		"/Wget[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_GOOGLEBOT => [
+        	"deviceType" => self::DEVICE_BOT,
+        	"regex" => [
+        		"/Googlebot[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_GOOGLEBOTIMAGE => [
+        	"deviceType" => self::DEVICE_BOT,
+        	"regex" => [
+        		"/Googlebot-Image[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_MSNBOT => [
+        	"deviceType" => self::DEVICE_BOT,
+        	"regex" => [
+        		"/msnbot[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_SLURP => [
+        	"deviceType" => self::DEVICE_BOT,
+        	"parts" => [
+        		"Yahoo! Slurp",
+        	],
+        ],
+        self::BROWSER_BINGBOT => [
+        	"deviceType" => self::DEVICE_BOT,
+        	"parts" => [
+        		"bingbot",
+        	],
+        ],
+        self::BROWSER_BAIDU => [
+        	"deviceType" => self::DEVICE_BOT,
+        	"parts" => [
+        		"Baiduspider",
         	],
         ],
     ];
@@ -300,6 +345,8 @@ class Browser
                 if (preg_match($regexp, $this->agent, $matches)) {
                     if (isset($matches['version']))
                         $this->browserVersion = $matches['version'];
+                    if (isset($value['deviceType']))
+                    	$this->deviceType = $value['deviceType'];
                     $this->browserName = $browser;
                     break 2;
                 }
