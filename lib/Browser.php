@@ -280,9 +280,8 @@ class Browser
 
     private function stringContains($needle, array $haystack)
     {
-        foreach ($haystack as $value) {
-            return (stripos($needle, $value) !== false);
-        }
+        foreach ($haystack as $value)
+            if (stripos($needle, $value) !== false) return true;
         return false;
     }
 
