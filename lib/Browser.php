@@ -40,10 +40,10 @@ class Browser
 
     // browsers
     const BROWSER_UNKNOWN = 'Unknown';
-    //const BROWSER_OPERA = 'Opera';
+    const BROWSER_OPERA = 'Opera';
     //const BROWSER_OPERA_MINI = 'Opera Mini';
     const BROWSER_WEBTV = 'WebTV';
-    //const BROWSER_IE = 'Internet Explorer';
+    const BROWSER_IE = 'Internet Explorer';
     //const BROWSER_POCKET_IE = 'Pocket Internet Explorer';
     const BROWSER_KONQUEROR = 'Konqueror';
     const BROWSER_ICAB = 'iCab';
@@ -52,15 +52,11 @@ class Browser
     const BROWSER_FIREFOX = 'Firefox';
     const BROWSER_ICEWEASEL = 'Iceweasel';
     const BROWSER_SHIRETOKO = 'Shiretoko';
-    //const BROWSER_MOZILLA = 'Mozilla';
+    const BROWSER_MOZILLA = 'Mozilla';
     const BROWSER_AMAYA = 'Amaya';
     const BROWSER_LYNX = 'Lynx';
     const BROWSER_SAFARI = 'Safari';
-    //const BROWSER_IPHONE = 'iPhone';
-    //const BROWSER_IPOD = 'iPod';
-    //const BROWSER_IPAD = 'iPad';
     const BROWSER_CHROME = 'Chrome';
-    //const BROWSER_ANDROID = 'Android';
     //const BROWSER_GOOGLEBOT = 'GoogleBot';
     //const BROWSER_SLURP = 'Yahoo! Slurp';
     //const BROWSER_W3CVALIDATOR = 'W3C Validator';
@@ -134,7 +130,22 @@ class Browser
             ],
             "regex" => [
                 "/Version[\/ ](?P<version>([^ ;\)]+))/i",
+				"/Safari/i",
             ],
+        ],
+        self::BROWSER_IE => [
+        	"regex" => [
+        		"/MSIE[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_OPERA => [
+        	"parts" => [
+        		"Opera",
+        	],
+        	"regex" => [
+        		"/Version[\/ ](?P<version>([^ ;\)]+))/i",
+        		"/Opera[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
         ],
         self::BROWSER_BLACKBERRY => [
             "parts" => [
@@ -208,6 +219,14 @@ class Browser
             "regex" => [
                 "/amaya[\/ ](?P<version>([^ ;\)]+))/i",
             ],
+        ],
+        self::BROWSER_MOZILLA => [
+        	"parts" => [
+        		"Mozilla"
+        	],
+        	"regex" => [
+        		"/rv:(?P<version>([^ ;\)]+))/i",
+        	],
         ],
     ];
 
