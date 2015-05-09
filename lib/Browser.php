@@ -67,10 +67,15 @@ class Browser
     //const BROWSER_MSN = 'MSN Browser';
     //const BROWSER_MSNBOT = 'MSN Bot';
     //const BROWSER_BINGBOT = 'Bing Bot';
-    //const BROWSER_NETSCAPE_NAVIGATOR = 'Netscape Navigator';
+    const BROWSER_NETSCAPE_NAVIGATOR = 'Netscape Navigator';
     const BROWSER_GALEON = 'Galeon';
     const BROWSER_NETPOSITIVE = 'NetPositive';
     const BROWSER_PHOENIX = 'Phoenix';
+    const BROWSER_MAXTHON = "Maxthon";
+
+    // libraries and utilities
+    const BROWSER_CURL = "cURL";
+    const BROWSER_WGET = "Wget";
 
     // platforms
     const PLATFORM_UNKNOWN     = 'Unknown';
@@ -145,6 +150,11 @@ class Browser
         	"regex" => [
         		"/Version[\/ ](?P<version>([^ ;\)]+))/i",
         		"/Opera[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_NETSCAPE_NAVIGATOR => [
+        	"regex" => [
+        		"/(Netscape|Navigator)[\/ ](?P<version>([^ ;\)]+))/i",
         	],
         ],
         self::BROWSER_BLACKBERRY => [
@@ -226,6 +236,21 @@ class Browser
         	],
         	"regex" => [
         		"/rv:(?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_MAXTHON => [
+        	"regex" => [
+        		"/Maxthon[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_CURL => [
+        	"regex" => [
+        		"/cURL[\/ ](?P<version>([^ ;\)]+))/i",
+        	],
+        ],
+        self::BROWSER_WGET => [
+        	"regex" => [
+        		"/Wget[\/ ](?P<version>([^ ;\)]+))/i",
         	],
         ],
     ];
